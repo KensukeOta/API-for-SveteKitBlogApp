@@ -3,6 +3,8 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from routers import users, posts
+
 app = FastAPI()
 
 origins = [
@@ -17,6 +19,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(users.router)
+app.include_router(posts.router)
+
 
 @app.get("/")
 def read_root():
